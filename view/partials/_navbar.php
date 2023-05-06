@@ -22,7 +22,7 @@
                         <?=  $_SESSION['firstName'] . " " .  $_SESSION['lastName']?>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="profileDrop">
-                        <?php if($_SESSION['rank'] == 2 || $_SESSION['rank'] == 0){?>
+                        <?php if($_SESSION['rank'] == 2 || $_SESSION['rank'] == 1){?>
                         <li><a class="dropdown-item" href="panel"><i class="fa-solid fa-bars-staggered"></i> Panel</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <?php } ?>

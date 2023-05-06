@@ -16,6 +16,54 @@ function dbConnect(){
     }
 }
 
+
+// ######################################### PARTIE POUR LES STATISTIQUES #########################################
+function addView(){
+    $db = dbConnect();
+    $req = $db->prepare("SELECT view FROM views");
+    $req->execute();
+    $views = $req->fetch();
+    if(!isset($_COOKIE['viewed'])){
+        $view = $views[0] + 1;
+        $req = $db->prepare("UPDATE views set view=?");
+        $req->execute(array($view));
+        setcookie("viewed","ok",time()+365*24*3600);
+    }
+}
+
+function getViews(){
+    $db = dbConnect();
+    $req = $db->prepare("SELECT view FROM views");
+    $req->execute();
+    return $req->fetch();
+}
+function getNumUsers(){
+    $db = dbConnect();
+    $req = $db->prepare("SELECT COUNT(*) AS total FROM users");
+    $req->execute();
+    return $req->fetch();
+}
+// ######################################### PARTIE GLOBALE #########################################
+/* 
+    ---- cette function fais le traitement du formulaire de l'authentification
+    function getAllUsers(){
+        return @void;
+    }
+*/
+
+function getRecordsUsers($pageNumber, $recordsPerPage) {
+    $db = dbConnect();
+
+    $offset = ($pageNumber - 1) * $recordsPerPage;
+    // Fetch records from the database using LIMIT and OFFSET
+    $query = "SELECT * FROM users LIMIT $recordsPerPage OFFSET $offset";
+    // Execute the query and return the result
+    $req = $db->prepare($query);
+    $req->execute();
+
+    return $req;
+}
+
 // ######################################### PARTIE D'AUTHENTIFICATION (inscription / connection) #########################################
 
 /* 
@@ -176,22 +224,6 @@ function getProfilePostes(){
     
     return $req;
 }
-
-// ######################################### PARTIE POUR LES STATISTIQUES #########################################
-// tous les system d'ajout
-function addView(){
-    $db = dbConnect();
-    $req = $db->prepare("SELECT view FROM views");
-    $req->execute();
-    $views = $req->fetch();
-    if(!isset($_COOKIE['viewed'])){
-        $view = $views[0] + 1;
-        $req = $db->prepare("UPDATE views set view=?");
-        $req->execute(array($view));
-        setcookie("viewed","ok",time()+365*24*3600);
-    }
-}
-
 
 
 
