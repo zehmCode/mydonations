@@ -20,7 +20,7 @@ ob_start();
 								<div class="mx-auto">
 									<div>
 										<p class="mb-0">
-											<a href="#" class="btn btn-secondary py-3 px-2 px-md-4">Commencer</a>
+											<a href="create" class="btn btn-secondary py-3 px-2 px-md-4">Commencer</a>
 										</p>
 									</div>
 								</div>
@@ -89,7 +89,7 @@ ob_start();
 							</div>
 						</div>
 					</div>
-					<p><a href="#" class="btn btn-secondary btn-outline-secondary">Commencer maintenant</a></p>
+					<p><a href="create" class="btn btn-secondary btn-outline-secondary">Commencer maintenant</a></p>
 				</div>
 				<div class="col-md-5 wrap-about">
 					<img src="public/img/home/hands.jpg" class="img-fluid" alt="hands pic" style="border-radius: 10px;">
@@ -98,7 +98,7 @@ ob_start();
 		</div>
 	</section>
 
-
+	<?php if($postes->rowCount() != 0) {?>
 	<section class="ftco-section ftco-no-pb">
 		<div class="container">
 			<div class="row justify-content-center pb-5 mb-3">
@@ -108,83 +108,33 @@ ob_start();
 				</div>
 			</div>
 			<div class="row">
+				<?php
+					$max_length = 50; 
+					foreach($postes as $poste){
+						$percentage = floor(($poste['current_amount'] / $poste['goal_amount']) * 100);
+				?>
 				<div class="col-md-6 col-lg-3">
-					<div class="causes causes-2 text-center ftco-animate">
-						<a href="#" class="img w-100" style="background-image: url(public/img/home/causes-3.jpg);"></a>
-						<div class="text p-3">
-							<div class="badge bg-secondary text-white">Charité</div>
-							<h2><a href="#">Sauvez les enfants pauvres de la faim</a></h2>
-							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam veritatis itaque eveniet.
-							</p>
+					<div class="causes causes-2 ftco-animate">
+						<a href="campaign&campaign_id=<?= $poste['campaign_id'] ?>" class="img w-100" style="background-image: url(<?= $poste['image'] ?>);"></a>
+						<div class="text p-3" style="position:relative;">
+							<h2><a href="campaign&campaign_id=<?= $poste['campaign_id'] ?>"><?= $poste['title'] ?></a></h2>
+							<p><?= (strlen($poste['description']) > $max_length) ? substr(strip_tags($poste['description']), 0, $max_length) . "..." : strip_tags($poste['description']) ?></p>
 							<div class="goal mb-4">
-								<p><span>$13,500</span> sur <span>$15,000</span></p>
+								<p><span><?= $poste['current_amount'] ?></span> sur <span><?= $poste['goal_amount'] ?></span></p>
 								<div class="progress" style="height:20px">
-									<div class="progress-bar bg-secondary" style="width:90%; height:20px">90%</div>
+									<div class="progress-bar bg-secondary" style="width:<?= $percentage ?>%; height:20px"><?= $percentage ?>%</div>
 								</div>
 							</div>
-							<p><a href="#" class="btn btn-primary text-dark w-100">Faire un don</a></p>
+							<p><a href="campaign&campaign_id=<?= $poste['campaign_id'] ?>" class="btn btn-primary text-dark w-100">Faire un don</a></p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 col-lg-3">
-					<div class="causes causes-2 text-center ftco-animate">
-						<a href="#" class="img w-100" style="background-image: url(public/img/home/dogo.jpg);"></a>
-						<div class="text p-3">
-							<div class="badge bg-secondary text-white">Particuliers</div>
-							<h2><a href="#">Aidez Bobize pour retrouver sa santé</a></h2>
-							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam veritatis itaque eveniet.
-							</p>
-							<div class="goal mb-4">
-								<p><span>$4,450</span> sur <span>$5,000</span></p>
-								<div class="progress" style="height:20px">
-									<div class="progress-bar bg-secondary" style="width:89%; height:20px">89%</div>
-								</div>
-							</div>
-							<p><a href="#" class="btn btn-primary text-dark w-100">Faire un don</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3">
-					<div class="causes causes-2 text-center ftco-animate">
-						<a href="#" class="img w-100" style="background-image: url(public/img/home/cat.jpg);"></a>
-						<div class="text p-3">
-							<div class="badge bg-secondary text-white">Particuliers</div>
-							<h2><a href="#">Aidez un refuge pour chats local</a></h2>
-							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam veritatis itaque eveniet.
-							</p>
-							<div class="goal mb-4">
-								<p><span>$25,500</span> sur <span>$30,000</span></p>
-								<div class="progress" style="height:20px">
-									<div class="progress-bar bg-secondary" style="width:85%; height:20px">85%</div>
-								</div>
-							</div>
-							<p><a href="#" class="btn btn-primary text-dark w-100">Faire un don</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3">
-					<div class="causes causes-2 text-center ftco-animate">
-						<a href="#" class="img w-100" style="background-image: url(public/img/home/friend.jpg);"></a>
-						<div class="text p-3">
-							<div class="badge bg-secondary text-white">Particuliers</div>
-							<h2><a href="#">Petite aide pour un ami dans le besoin</a></h2>
-							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam veritatis itaque eveniet.
-							</p>
-							<div class="goal mb-4">
-								<p><span>$1,650</span> sur <span>$3,000</span></p>
-								<div class="progress" style="height:20px">
-									<div class="progress-bar bg-secondary" style="width:55%; height:20px">55%</div>
-								</div>
-							</div>
-							<p><a href="#" class="btn btn-primary text-dark w-100">Faire un don</a></p>
-						</div>
-					</div>
-				</div>
+				<?php } ?>
 			</div>
-			<p class="d-flex justify-content-center mb-5 ftco-animate"><a href="#" class="btn btn-secondary">voir
-					plus</a></p>
+			<p class="d-flex justify-content-center mb-5 ftco-animate"><a href="#" class="btn btn-secondary">voir plus</a></p>
 		</div>
 	</section>
+	<?php } ?>
 
 	<section class="ftco-counter" id="section-counter">
 		<div class="container">
@@ -192,7 +142,7 @@ ob_start();
 				<div class="col-md-12 mb-5 mb-md-0 text-center text-md-left">
 					<h2 class="font-weight-bold" style="color: #fff; font-size: 22px;">Nous sommes en mission pour aider
 						tous vos problèmes</h2>
-					<a href="#" class="btn btn-white btn-outline-white">Faites votre premier pas</a>
+					<a href="create" class="btn btn-white btn-outline-white">Faites votre premier pas</a>
 				</div>
 			</div>
 		</div>
@@ -207,63 +157,16 @@ ob_start();
 				</div>
 			</div>
 			<div class="row">
-				<!-- first row -->
+				<?php
+					foreach($categories as $categorie){
+				?>
 				<div class="col-md-2 col-4">
 					<div class="categorie text-secondary">
-						<i class="fa-regular fa-heart"></i>
-						<p>Médical</p>
+						<i class="<?= $categorie['icon'] ?>"></i>
+						<p><?= $categorie['category_name'] ?></p>
 					</div>
 				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-tower-broadcast"></i>
-						<p>Urgence</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-book-open"></i>
-						<p>Éducation</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-people-group"></i>
-						<p>Famille</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-palette"></i>
-						<p>Créative</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-basketball"></i>
-						<p>Sportive</p>
-					</div>
-				</div>
-
-				<!-- second row -->
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-earth-americas"></i>
-						<p>Environnement</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-award"></i>
-						<p>Événement</p>
-					</div>
-				</div>
-				<div class="col-md-2 col-4">
-					<div class="categorie text-secondary">
-						<i class="fa-solid fa-paw"></i>
-						<p>Animaux</p>
-					</div>
-				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</section>
@@ -277,7 +180,7 @@ ob_start();
 					</div>
 				</div>
 				<div class="col-md-4 col-lg-4 d-flex align-items-center justify-content-end">
-					<p class="mb-0"><a href="#" class="btn btn-primary py-3 px-4">Devenir membre</a></p>
+					<p class="mb-0"><a href="create" class="btn btn-primary py-3 px-4"><?= (isset($_SESSION['user_id'])) ? "Commencer maintenant" : "Devenir membre" ?></a></p>
 				</div>
 			</div>
 		</div>

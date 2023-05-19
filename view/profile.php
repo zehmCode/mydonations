@@ -98,22 +98,21 @@ ob_start();
                     }else{
                 ?>
                 <h6>vos postes</h6>
+                <div class="row">
                 <?php
-                        $max_length = 30;
+                        $max_length = 100;
                         foreach($postes as $poste){
                             $percentage = ($poste['current_amount'] / $poste['goal_amount']) * 100;
-                            $description = (strlen($poste['description']) > $max_length) ? substr($poste['description'], 0, $max_length) . "..." : $poste['description'];
                 ?>
-                        <div class="row">
                             <div class="col-md-6 m-0 mb-2">
                                 <div class="card">
                                     <div class="card-body">
-                                        <a href="#" class="text-secondary font-weight-bold"><?= $poste['title'] ?></a>
+                                        <a href="campaign&campaign_id=<?= $poste['campaign_id'] ?>" class="text-secondary font-weight-bold"><?= $poste['title'] ?></a>
                                         <p class="text-justify text-dark font-weight-bold m-0 mt-1" style="font-size: 12px;">
                                             description:
                                         </p>
-                                        <p class="text-justify" style="font-size: 12px;">
-                                            <?= $description ?>
+                                        <p style="font-size:12px;">
+                                            <?= (strlen($poste['description']) > $max_length) ? substr(strip_tags($poste['description']), 0, $max_length) . "..." : strip_tags($poste['description']) ?>
                                         </p>
                                         <p class="m-0"><span class="text-secondary font-weight-bold" style="font-size: 20px;"><?= $poste['current_amount'] ?></span> sur
                                             <span><?= $poste['goal_amount'] ?></span>
@@ -124,14 +123,14 @@ ob_start();
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                <?php
+                            <?php
                         }
-                ?>
+                        ?>
                     
-                <?php
+                    </div>
+                    <?php
                     }
-                ?>
+                    ?>
             </div>
         </div>
     </div>

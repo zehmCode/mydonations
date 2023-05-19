@@ -10,8 +10,7 @@
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a href="home" class="nav-link">Acceuil</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">Particuliers</a></li>
-				<li class="nav-item mr-5"><a href="#" class="nav-link">Charités</a></li>
+				<li class="nav-item m-0"><a href="campaigns" class="nav-link">Parcourir</a></li>
 
                 <?php if(!isset($_SESSION['user_id'])){ ?>
 				<li class="nav-item"><a href="signup" class="nav-link">Créer un compte</a></li>

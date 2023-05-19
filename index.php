@@ -10,9 +10,25 @@ if(isset($_GET['url'])){
 
 if($url == ''){
     header("Location: home");   
+}else if($url[0] == 'donate'){
+    if(!isset($_SESSION['user_id'])){header("Location: home"); return;}
+    if(count($url) > 1){header("Location: ../{$url[0]}"); return;}
+    if(!isset($_GET['campaign_id'])){header("Location: campaigns"); return;}
+    donationPage();
+}else if($url[0] == 'create'){
+    if(!isset($_SESSION['user_id'])){header("Location: home"); return;}
+    if(count($url) > 1){header("Location: ../{$url[0]}"); return;}
+    createPage();
 }else if($url[0] == 'home'){
     if(count($url) > 1){header("Location: ../{$url[0]}"); return;}
     homePage();
+}else if($url[0] == 'campaign'){
+    if(!isset($_GET['campaign_id'])){header("Location: campaigns"); return;}
+    if(count($url) > 1){header("Location: ../{$url[0]}"); return;}
+    campaignPage();
+}else if($url[0] == 'campaigns'){
+    if(count($url) > 1){header("Location: ../{$url[0]}"); return;}
+    campaignsPage();
 }else if($url[0] == 'profile'){
     if(!isset($_SESSION['user_id'])){header("Location: home"); return;}
     if(count($url) > 1){header("Location: ../{$url[0]}"); return;}

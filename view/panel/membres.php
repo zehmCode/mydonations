@@ -34,9 +34,9 @@ ob_start();
                             <td>
                                 <form action="" method="POST" class="d-flex" style="gap: 5px;">
                                     <select class="form-control form-control-lg">
-                                        <option selected></option>
-                                        <option>ADMIN</option>
-                                        <option>MEMBRE</option>
+                                        <option selected>changer le rang</option>
+                                        <option value="1">ADMIN</option>
+                                        <option value="0">MEMBRE</option>
                                     </select>
                                     <button type="submit" class="btn btn-success"><i class="fa-regular fa-circle-check"></i></button>
                                 </form>

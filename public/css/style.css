@@ -226,7 +226,7 @@ caption {
     color: #6c757d;
     text-align: left;
     caption-side: bottom
-} 
+}
 
 th {
     text-align: inherit
@@ -10998,6 +10998,21 @@ h5,
     color: #fff5ed
 }
 
+.categorie .active {
+    background-color: #7a4dde;
+    color: #fff5ed
+}
+
+.cate {
+    border-radius: 40px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.selected {
+    box-shadow: 0 0 20px #e4606d;
+}
+
 .ftco-navbar-light {
     background: rgba(0, 0, 0, 0) !important;
     position: absolute;
@@ -12020,10 +12035,9 @@ h5,
 }
 
 .causes {
-    width: 100%;
     display: block;
     margin-bottom: 50px;
-    transition: all .3s ease
+    transition: all .3s ease;
 }
 
 @media(max-width: 991.98px) {
@@ -12039,7 +12053,8 @@ h5,
     position: relative;
     overflow: hidden;
     display: block;
-    border-radius: 20px
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .causes .text {
@@ -12074,10 +12089,6 @@ h5,
     color: #000
 }
 
-.causes .goal p span {
-    font-weight: 600;
-    color: #7a4dde
-}
 
 .causes .btn-light:hover {
     background: #eec857 !important;
@@ -13549,6 +13560,20 @@ textarea.form-control {
         stroke-dasharray: 89, 200;
         stroke-dashoffset: -136px
     }
+}
+
+.core-entity {
+    border-radius: 2px;
+}
+
+.core-entity {
+    background-position-y: 33.33%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 66%;
+    -webkit-transition: padding-top .1s ease-in;
+    transition: padding-top .1s ease-in;
+    width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

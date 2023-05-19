@@ -1,11 +1,12 @@
 <?php
 
 require('model/frontend.php');
-
+// PARTIE ADMINISTRATION
 function panelPage(){
     $url = $url = explode('/',$_GET['url']);
     $users = getNumUsers();
     $views = getViews();
+    $categories = getAllCategories();
     require("view/panel/panel.php");
 }
 function panelMembresPage(){
@@ -14,7 +15,7 @@ function panelMembresPage(){
     $pageNumber = isset($_GET['page']) ? $_GET['page'] : 1;
 
     // Set the number of records per page
-    $recordsPerPage = 1;
+    $recordsPerPage = 5;
 
     // Get the records for the current page
     $users = getRecordsUsers($pageNumber, $recordsPerPage);
@@ -30,7 +31,7 @@ function panelMembresPage(){
     require("view/panel/membres.php");
 }
 
-
+// PARTIE DES MEMBRES
 function loginPage(){
     addView();
     sysLogin();
@@ -43,13 +44,27 @@ function signUpPage(){
 }
 
 function homePage(){
-    // ajout de vue
     addView();
-    //searchCity();
-    //affichage des donnes
-    //$cities = getCities();
-    //$hotelsCities = getHotelCities();
+    $categories = getAllCategories();
+    //$postes = getAllCampaigns();
+    $recordsPerPage = 4;
+    $postes = getRecordsCampaigns(1, $recordsPerPage);
     require("view/home.php");
+}
+function campaignPage(){
+    addView();
+    $poste = getCampaign($_GET['campaign_id']);
+    $nbDonation = numDonationsOfCampaign($_GET['campaign_id']);
+    $nbDonation = $nbDonation->fetch();
+    $donators = whoDonate($_GET['campaign_id']);
+    $donators = $donators->fetchAll();
+    require("view/campaign.php");
+}
+function campaignsPage(){
+    addView();
+    $categories = getAllCategories()->fetchAll();
+    $postes = getAllCampaigns();
+    require("view/campaigns.php");
 }
 function profilePage(){
     addView();
@@ -58,70 +73,16 @@ function profilePage(){
     
     require("view/profile.php");
 }
-// function sejourPage(){
-//     $url = $url = explode('/',$_GET['url']);
-//     // ajout de vue
-//     addView();
-
-//     // affichage des donnees
-//     if(count($url) >= 2){
-//         $name = $url[1];
-//         $hotelsFromCity = getHotelsFromCity($name);
-//     }
-//     $hotelsCities = getHotelCities();
-
-//     require("view/sejour.php");
-// }
-
-// function hotelPage(){
-//     $url = $url = explode('/',$_GET['url']);
-//     addView();
-//     reserve();
-
-//     //affichage des donnee
-//     if(count($url) > 2){
-//         $id = intval($url[2]);
-//         $hotel = getHotel($id)->fetch();
-//         $photos = getPhotos($id)->fetchAll();
-//     }
-
-//     require("view/hotel.php");
-// }
-
-// function panelPage(){
-//     $url = $url = explode('/',$_GET['url']);
-//     // system d'ajout
-//     addView();
-//     addCountry();
-//     addCity();
-//     addHotel();
-//     addRoom();
-
-//     // system de modification
-//     editCountry();
-//     //editCity();
-
-    
-//     // affichage des donnees
-//     $countries = getCountries();
-//     $cities = getCities();
-//     $hotels = getHotels();
-//     $rooms = getRooms();
-//     $reservations = getReservations();
-//     if(count($url) > 2){
-//         $id = intval($url[2]);
-//         editHotel($id);
-//         $hotel = getHotel($id)->fetch();
-//     }
-        
-
-//     //  stats pour le dashboard
-//     $countMember = countMember()->fetch();
-//     $countCountry = countCountry()->fetch();
-//     $countCity = countCity()->fetch();
-//     $countHotel = countHotel()->fetch();
-//     $countView = countViews()->fetch();
-//     $countReservation = countReservation()->fetch();
-
-//     require("view/panel.php");
-// }
+function createPage(){
+    $categories = getAllCategories();
+    addCampaign();
+    require("view/create.php");
+}
+function donationPage(){
+    addView();
+    addDonation();
+    $poste = getCampaign($_GET['campaign_id']);
+    if($poste->rowCount() == 0) header("Location: campaigns");
+    $poste = $poste->fetchAll();
+    require("view/donation.php");
+}
